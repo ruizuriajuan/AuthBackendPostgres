@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('../database/config');
+const path = require('path');
 
 class Server {
     constructor() {
@@ -33,6 +34,10 @@ class Server {
         //middleware condicional
         this.app.use(this.usuariosPath,require('../routes/user.routes'));
         
+        //Manejar las demas rutas
+        this.app.get('*', (req, res)=>{
+            res.sendFile(path.resolve(__dirname, 'index.html'))
+        })
     }
 
     listen() {
